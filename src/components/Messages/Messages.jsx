@@ -48,7 +48,7 @@ const Messages = ({chatId}) => {
                     ...messageData
                 }
             )
-            console.log('Получаем сообщение')
+            // console.log('Получаем сообщение')
             // dispatch(getMessage(data))
             return data
         }catch (error) {
@@ -60,17 +60,20 @@ const Messages = ({chatId}) => {
         try {
             const {data} = await axios.get(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`)
             if (data !== null) {
-                console.log('Входящее заявка - ', data.receiptId);
+                // console.log('Входящее заявка - ', data.receiptId);
                 await getMessages(chatId, data.body.idMessage).then(response => {
-                    console.log('проверка получения сообщения',response);
+                    // console.log('проверка получения сообщения',response);
                     dispatch(getMessage(response))
+                    const receiptId = data.receiptId
+                    deleteNotification(receiptId, apiTokenInstance, idInstance)
                 })
 
-                const receiptId = data.receiptId
-                deleteNotification(receiptId, apiTokenInstance, idInstance)
-            } else {
-                console.log('Data is NULL')
+                // const receiptId = data.receiptId
+                // deleteNotification(receiptId, apiTokenInstance, idInstance)
             }
+            // else {
+            //     console.log('Data is NULL')
+            // }
         }catch (error) {
             console.error('ReceiveNotification',error)
         }

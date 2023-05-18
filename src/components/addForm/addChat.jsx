@@ -35,7 +35,7 @@ const AddChat = () => {
                     "phoneNumber": foneNumber
                 }
             )
-            console.log(data);
+            // console.log(data);
             return data.existsWhatsapp
 
         } catch (error) {

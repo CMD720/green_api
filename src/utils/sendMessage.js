@@ -11,7 +11,7 @@ export const sendMessage = async (chatId, textMessage, apiTokenInstance, idInsta
                 ...messageData
             }
         )
-        console.log('Сообщение отправлено')
+        // console.log('Сообщение отправлено')
     } catch (error) {
         console.error('SendMessage',error)
     }
