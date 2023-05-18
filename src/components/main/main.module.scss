@@ -1,0 +1,85 @@
+.main {
+  z-index: 100;
+  max-width: 1600px;
+  top: 19px;
+  width: calc(100vw - 38px);
+  height: calc(100vh - 38px);
+  background-color: white;
+  margin: 0 auto;
+  position: relative;
+
+  display: flex;
+
+
+  .chats {
+    width: 30%;
+    border: 1px solid #d1d7db;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .profile {
+
+
+      .logOut {
+        position: absolute;
+        right: 25px;
+        top: 18px;
+        fill: #00a884;
+        transform: rotateZ(180deg);
+        cursor: pointer;
+      }
+    }
+
+    .add_Chat {
+      position: absolute;
+      right: 15px;
+      bottom: 20px;
+      cursor: pointer;
+
+      svg {
+        background-color: white;
+        border-radius: 50%;
+        fill: #00a884;
+      }
+    }
+
+
+  }
+
+  .chat_head {
+    display: flex;
+    background-color: #f0f2f5;
+    padding: 0 16px;
+    cursor: pointer;
+    height: 72px;
+    user-select: none;
+
+    .chat_avatar {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    .chat_name_wrapper {
+      border-bottom: 1px solid #e9edef;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-basis: auto;
+      flex-grow: 1;
+
+      .chat_name {
+        font-size: 24px;
+      }
+    }
+  }
+
+}

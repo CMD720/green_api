@@ -1,0 +1,38 @@
+.chat_head {
+  display: flex;
+  background-color: #ffff;
+  padding: 0 16px;
+  cursor: pointer;
+  height: 72px;
+  user-select: none;
+
+  .chat_avatar {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  .chat_name_wrapper {
+    border-bottom: 1px solid #e9edef;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-basis: auto;
+    flex-grow: 1;
+
+    .chat_name {
+      font-size: 24px;
+      color: #00a884;
+    }
+  }
+}
+
+.selected {
+  background-color: #f0f2f5;
+}
