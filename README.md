@@ -1,7 +1,7 @@
 # Пользовательский интерфейс WhatsApp.
 
 #### для отправки и получения сообщений.
-* `deploy:` https://enduromotoshop.vercel.app/
+* `deploy:` https://green-api-kappa.vercel.app/
 
 ---
 
