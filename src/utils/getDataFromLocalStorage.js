@@ -10,3 +10,7 @@ export const getChatLocalStorage = () => {
 
     return data ? JSON.parse(data) :{chatId: []}
 }
+
+export const CurrentChat = () => {
+
+}

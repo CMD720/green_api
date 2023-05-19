@@ -2,7 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 
 const initialState = {
-    messages: [],
+    chatMessages: [],
+    currentMessages:[],
     flag: true,
 }
 
@@ -11,17 +12,27 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {
         getHistory(state, action) {
-            state.messages = action.payload
+            // console.log(action.payload);
+            // const findChat = state.chatMessages.find(item => {
+            //     return (item.chatId === action.payload.chatId)
+            // })
+            // // console.log(findChat);
+            // if(findChat){
+            //     state.currentMessages = findChat.messages
+            // }else{
+            //     state.chatMessages.push(action.payload)
+            //     state.currentMessages = action.payload.messages
+            // }
+
+            state.currentMessages = action.payload.messages
         },
         getMessage(state, action) {
-            state.messages.push(action.payload)
-        },
-        reloadChat(state) {
-            state.messages = []
+            state.currentMessages.push(action.payload)
         },
         setFlag(state) {
             state.flag = !state.flag
-        }
+        },
+
     }
 })
 

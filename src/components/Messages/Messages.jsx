@@ -8,80 +8,24 @@ import {messagesSelector} from "../../redux/messages/selectors";
 import {getHistory, getMessage} from "../../redux/messages/slice";
 import ChatHead from "../chatHead/chatHead";
 import {accountSelector} from "../../redux/accaunt/selector";
+import InputMessage from "./inputMessage";
+import MessagesHead from "../chatHead/messagesHead";
+import { useWhyDidYouUpdate } from 'ahooks';
+import {chatsSelector} from "../../redux/chat/selectors";
 
-
-const Messages = ({chatId}) => {
-
+const Messages = () => {
+    useWhyDidYouUpdate('MESSGES', {});
     const {apiTokenInstance, idInstance} = useAppSelector(accountSelector)
-    const {messages, flag} = useAppSelector(messagesSelector)
+    const {chatMessages, flag, currentMessages} = useAppSelector(messagesSelector)
+    const {currentChat} = useAppSelector(chatsSelector)
     const dispatch = useAppDispatch()
 
-    const inputRef = useRef(null)
     const msgBoard = useRef(null)
     const lastMessage = useRef(null)
-    const [value, setValue] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-
-
-    const clearInput = () => {
-        setValue('')
-        inputRef.current?.focus()
-    }
-    const onChangeInput = (event) => {
-        setValue(event.target.value)
-    }
-    const keyPress = (event) => {
-        if (event.key === 'Enter') {
-            sendMessage(chatId, value,apiTokenInstance, idInstance).catch(error => console.log(error));
-            clearInput();
-        }
-    }
-
-    const getMessages = async (chatId, idMessage) => {
-        const messageData = {
-            "chatId": chatId,
-            "idMessage": idMessage
-        }
-        try {
-            const {data} = await axios.post(`https://api.green-api.com/waInstance${idInstance}/getMessage/${apiTokenInstance}`,
-                {
-                    ...messageData
-                }
-            )
-            // console.log('Получаем сообщение')
-            // dispatch(getMessage(data))
-            return data
-        }catch (error) {
-            console.error('getMessage',error)
-        }
-    }
-
-    const receiveNotification = async () => {
-        try {
-            const {data} = await axios.get(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`)
-            if (data !== null) {
-                // console.log('Входящее заявка - ', data.receiptId);
-                await getMessages(chatId, data.body.idMessage).then(response => {
-                    // console.log('проверка получения сообщения',response);
-                    dispatch(getMessage(response))
-                    const receiptId = data.receiptId
-                    deleteNotification(receiptId, apiTokenInstance, idInstance)
-                })
-
-                // const receiptId = data.receiptId
-                // deleteNotification(receiptId, apiTokenInstance, idInstance)
-            }
-            // else {
-            //     console.log('Data is NULL')
-            // }
-        }catch (error) {
-            console.error('ReceiveNotification',error)
-        }
-    }
 
     const getChatHistory = async () => {
         const chatHistory = {
-            "chatId": chatId,
+            "chatId": currentChat,
             // "count": 10
         }
         try {
@@ -89,26 +33,20 @@ const Messages = ({chatId}) => {
                 {
                     ...chatHistory
                 })
-            dispatch(getHistory(data.reverse()))
-            setIsLoading(true)
+            const historyData = {
+                chatId: currentChat,
+                messages: data.reverse(),
+            }
+            dispatch(getHistory(historyData))
+            setTimeout(()=>{lastMessage.current?.scrollIntoView(false)},2000)
         }catch (error) {
             console.error('GetChatHistory',error)
         }
-
     }
 
     useEffect(() => {
-        if (isLoading) {
-            const interval = setInterval(() => {
-                receiveNotification()
-            }, 5000)
-            return () => clearInterval(interval);
-        }
-    }, [isLoading])
-
-    useEffect(() => {
-        getChatHistory(chatId)
-    }, [flag])
+        getChatHistory(currentChat)
+    }, [currentChat,flag])
 
     useEffect(() => {
         const height = msgBoard.current?.children[0].clientHeight ?? 50
@@ -116,15 +54,15 @@ const Messages = ({chatId}) => {
             top: msgBoard.current?.scrollTop + height,
             behavior: "smooth",
         })
-    }, [messages])
+    }, [currentMessages])
 
-    lastMessage.current?.scrollIntoView(false)
+    // lastMessage.current?.scrollIntoView(false)
     return (
         <div className={styles.opened_chat}>
-            <ChatHead chatId={chatId} activeChatId={chatId}/>
+            <MessagesHead/>
             <div ref={msgBoard} className={styles.message_board}>
                 {
-                    messages.map((message, index) => (
+                    currentMessages.map((message, index) => (
                         <div key={index}
                              className={message.type === "incoming" ? styles.in_message : styles.out_message}>
                             {
@@ -135,15 +73,7 @@ const Messages = ({chatId}) => {
                 }
                 <div ref={lastMessage}></div>
             </div>
-            <div className={styles.input_message} >
-                <input
-                    ref={inputRef}
-                    value={value}
-                    onChange={onChangeInput}
-                    onKeyDown={keyPress}
-                    className={styles.input} placeholder="Enter message" type="text"/>
-                {/*<div onClick={()=>receiveNotification()} >GET-MESSAGE</div>*/}
-            </div>
+            <InputMessage/>
         </div>
     );
 };

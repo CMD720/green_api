@@ -13,16 +13,17 @@ import {logOut} from "../../redux/accaunt/slice";
 import AddChat from "../addForm/addChat";
 import {modalOnOff} from "../../redux/modal/slice";
 import {removeChat} from "../../redux/chat/slice";
+import Notifications from "../chatHead/Notifications";
 
 const Main = () => {
 
     const {apiTokenInstance, idInstance} = useAppSelector(accountSelector)
-    const{chatId} = useAppSelector(chatsSelector)
+    const{chatId,currentChat} = useAppSelector(chatsSelector)
     const dispatch = useAppDispatch()
-    const [activeChatId, setActiveChatId] = useState("")
     const [name, setName] = useState("")
     const [myChatId, setMyChatId] = useState("")
     const [avatarURl, setAvatarUrl] = useState("")
+
 
     const getMyInfo = async () => {
         try {
@@ -57,10 +58,11 @@ const Main = () => {
     },[myChatId])
 
 
-    const chats = chatId.map((chatId, index)=><ChatHead key={index} setActive={setActiveChatId} chatId={chatId} activeChatId={activeChatId}/>)
+    const chats = chatId.map((chatId, index)=><ChatHead key={index} chatId={chatId}/>)
     return (
         <div className={styles.main}>
             <div className={styles.chats}>
+                <Notifications/>
                 <div className={styles.profile}>
                     <div onClick={onClickLogOut} className={styles.logOut}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="30" height="30">
@@ -69,7 +71,6 @@ const Main = () => {
                             <path d="M10.476,21a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V3A1,1,0,0,1,3,2H9.476a1,1,0,0,1,1,1V8.333h2V3a3,3,0,0,0-3-3H3A3,3,0,0,0,0,3V21a3,3,0,0,0,3,3H9.476a3,3,0,0,0,3-3V15.667h-2Z"/>
                         </svg>
                     </div>
-                    {/***************************************/}
                     <div className={styles.chat_head}>
                         <div className={styles.chat_avatar}>
                             <img
@@ -84,7 +85,6 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
-                    {/***************************************/}
                 </div>
                 <div onClick={()=>dispatch(modalOnOff())} className={styles.add_Chat}>
                     <svg id="Layer_1" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
@@ -95,9 +95,9 @@ const Main = () => {
                 {chats}
             </div>
             {
-                activeChatId === ""
+                currentChat === ""
                     ? <NotSelectedChat/>
-                    : <Messages chatId={activeChatId}/>
+                    : <Messages/>
             }
             <Modal>
                 <AddChat/>

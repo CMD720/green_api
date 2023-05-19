@@ -5,6 +5,7 @@ const initChat = getChatLocalStorage()
 
 const initialState = {
     chatId: initChat.chatId,
+    currentChat:"",
 }
 
 const chatSlice = createSlice({
@@ -16,10 +17,13 @@ const chatSlice = createSlice({
         },
         removeChat(state){
             state.chatId = []
-        }
+        },
+        setCurrentChatId(state, action){
+            state.currentChat = action.payload
+        },
     }
 })
 
 export default chatSlice.reducer
 
-export const {addChat,removeChat} = chatSlice.actions
+export const {addChat,removeChat,setCurrentChatId} = chatSlice.actions
