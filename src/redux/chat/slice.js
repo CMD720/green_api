@@ -17,6 +17,7 @@ const chatSlice = createSlice({
         },
         removeChat(state){
             state.chatId = []
+            state.currentChat = ""
         },
         setCurrentChatId(state, action){
             state.currentChat = action.payload
