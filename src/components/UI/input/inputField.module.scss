@@ -1,0 +1,32 @@
+.input_fields {
+  position: relative;
+  //width: auto;
+  //padding: 5px 16px;
+
+  input {
+    margin: 15px 8px;
+    padding: 9px 37px 9px 12px;
+    flex-grow: 1;
+
+    //border: 1px solid #e9edef;
+    border: 1px solid crimson;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    outline: none;
+    width: 100%;
+    &:focus, &:hover{
+      border: 1px solid #dde0e1;
+    }
+  }
+
+  .clear_input {
+    position: absolute;
+    top: 25px;
+    right: 18px;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+}

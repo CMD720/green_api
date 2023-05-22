@@ -6,7 +6,7 @@ import {modalOnOff} from "../../redux/modal/slice";
 import axios from "axios";
 import {accountSelector} from "../../redux/accaunt/selector";
 import {getContactInfo} from "../../utils/getContactInfo";
-import {logIn} from "../../redux/accaunt/slice";
+import InputField from "../UI/input/inputField";
 
 const AddChat = () => {
 
@@ -95,13 +95,12 @@ const AddChat = () => {
                 {
                     foneNumber && (<div onClick={onClickClear} className={styles.clear_input}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
-                            <path
-                                d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+                            <path d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
                         </svg>
                     </div>)
                 }
             </div>
-
+            {/*<InputField keyPress={keyPress} value={foneNumber} onSetValue={onSetFoneNumber} onClearInput={setFoneNumber} placeholder={'Enter phone number (without + and 8)'}/>*/}
             <div onClick={createChat} className={styles.form_button}>
                 <button className={styles.add_chat}>create chat</button>
             </div>
