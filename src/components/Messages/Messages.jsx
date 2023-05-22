@@ -46,7 +46,7 @@ const Messages = () => {
 
     useEffect(() => {
         getChatHistory(currentChat)
-    }, [currentChat,flag])
+    }, [currentChat])
 
     useEffect(() => {
         const height = msgBoard.current?.children[0].clientHeight ?? 50

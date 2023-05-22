@@ -18,7 +18,7 @@ const Notifications = React.memo(() => {
             "chatId": chatId,
             "idMessage": idMessage
         }
-        console.log('MESSAGE DATA',messageData);
+        // console.log('MESSAGE DATA',messageData);
         try {
             const {data} = await axios.post(`https://api.green-api.com/waInstance${idInstance}/getMessage/${apiTokenInstance}`,
                 {
@@ -43,7 +43,7 @@ const Notifications = React.memo(() => {
             const interval = setInterval(() => {
                 receiveNotification().then(response => {
                     if (response){
-                        console.log('1',response)
+                        // console.log('1',response)
                         deleteNotification(response.receiptId, apiTokenInstance, idInstance).catch(error => console.error('deleteNotification',error))
                         // getMessages(currentChat.id, response.body.idMessage)
                         if(response.body.senderData.chatId === currentChat.id){
@@ -54,7 +54,7 @@ const Notifications = React.memo(() => {
 
                         }
                     }else{
-                        console.log('2',response);
+                        // console.log('2',response);
                     }
                 })
 

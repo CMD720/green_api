@@ -9,7 +9,7 @@ import InputField from "../UI/input/inputField";
 
 const InputMessage = () => {
 
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
     const {apiTokenInstance, idInstance} = useAppSelector(accountSelector)
     const {currentChat} = useAppSelector(chatsSelector)
     const inputRef = useRef(null)
@@ -22,10 +22,10 @@ const InputMessage = () => {
         setValue(event.target.value)
     }
     const onClickSendMessage = () => {
-        sendMessage(currentChat, value, apiTokenInstance, idInstance).catch(error => console.log(error));
-        setTimeout(() => {
-            dispatch(setFlag())
-        }, 1000)
+        sendMessage(currentChat.id, value, apiTokenInstance, idInstance).catch(error => console.log(error));
+        // setTimeout(() => {
+            // dispatch(setFlag())
+        // }, 1000)
         clearInput();
     }
     const keyPress = (event) => {
