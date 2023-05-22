@@ -27,7 +27,7 @@ const chatSlice = createSlice({
         },
         removeChat(state){
             state.chats = []
-            state.currentChat = {}
+            state.currentChat = {id:"", avatar:"", name:"", noReadMessageCount: 0}
         },
         setCurrentChatId(state, action){
             state.currentChat = action.payload
@@ -37,8 +37,6 @@ const chatSlice = createSlice({
             if(findChat){
                 findChat.noReadMessageCount = 0
             }
-            // state.currentChat = {...action.payload, noReadMessageCount: 0}
-            // state.currentChat.noReadMessageCount = 0
         },
         setMessageCount(state,action){
             const findChat = state.chats.find(item => {
