@@ -25,7 +25,7 @@ const Messages = () => {
 
     const getChatHistory = async () => {
         const chatHistory = {
-            "chatId": currentChat,
+            "chatId": currentChat.id,
             // "count": 10
         }
         try {
@@ -38,7 +38,7 @@ const Messages = () => {
                 messages: data.reverse(),
             }
             dispatch(getHistory(historyData))
-            setTimeout(()=>{lastMessage.current?.scrollIntoView(false)},2000)
+            setTimeout(()=>{lastMessage.current?.scrollIntoView(false)},1000)
         }catch (error) {
             console.error('GetChatHistory',error)
         }

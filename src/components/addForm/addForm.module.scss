@@ -14,24 +14,25 @@
     }
   }
 
-  .input_fields{
+  .input_fields {
     position: relative;
 
-    .clear_input{
+    .clear_input {
       position: absolute;
       top: 25px;
       right: 18px;
       opacity: 0.5;
-      cursor: pointer;    }
+      cursor: pointer;
+    }
+  }
 
-  }
-  .clear_input{
-    position: absolute;
-    top: 77px;
-    right: 40px;
-    opacity: 0.5;
-    cursor: pointer;
-  }
+  //.clear_input{
+  //  position: absolute;
+  //  top: 77px;
+  //  right: 40px;
+  //  opacity: 0.5;
+  //  cursor: pointer;
+  //}
 
   input {
     margin: 15px 8px;
@@ -59,9 +60,10 @@
     display: flex;
     justify-content: space-between;
 
-    .add_chat{
+    .add_chat {
       flex-grow: 1;
     }
+
     button {
       margin: 8px;
       padding: 8px 16px;

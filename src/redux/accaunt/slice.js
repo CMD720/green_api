@@ -7,7 +7,10 @@ const initAcc = getAccLocalStorage()
 const initialState = {
     idInstance: initAcc.idInstance,
     apiTokenInstance: initAcc.apiTokenInstance,
-    logged:initAcc.logged
+    wid: initAcc.wid,
+    avatarURL: initAcc.avatarURL,
+    name: initAcc.name,
+    logged: initAcc.logged
 }
 
 const accountSlice = createSlice({
@@ -15,8 +18,12 @@ const accountSlice = createSlice({
     initialState,
     reducers: {
         logIn(state, action) {
+            // console.log(action.payload);
             state.idInstance = action.payload.idInstance
             state.apiTokenInstance = action.payload.apiTokenInstance
+            state.wid = action.payload.id
+            state.avatarURL = action.payload.avatar
+            state.name = action.payload.name
             state.logged = true
         },
         logOut(state) {

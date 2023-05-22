@@ -9,20 +9,20 @@ import {chatsSelector} from "./redux/chat/selectors";
 const App = () => {
 
     const accData = useAppSelector(accountSelector)
-    const chatId = useAppSelector(chatsSelector)
+    const chats = useAppSelector(chatsSelector)
     const {logged} = useAppSelector(accountSelector)
     const isMounted = useRef(false)
 
     useEffect(() => {
         if (isMounted.current) {
             const jsonAccData = JSON.stringify(accData)
-            const jsonChatData = JSON.stringify(chatId)
+            const jsonChatData = JSON.stringify(chats)
 
             localStorage.setItem('accData', jsonAccData)
             localStorage.setItem('chatData', jsonChatData)
         }
         isMounted.current = true
-    }, [accData.logged, chatId])
+    }, [accData.logged, chats])
 
     return (
         <div className='App'>

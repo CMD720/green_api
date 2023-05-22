@@ -5,6 +5,7 @@ import {getMessage} from "../../redux/messages/slice";
 import {useAppDispatch, useAppSelector} from "../../redux/storeHooks";
 import {chatsSelector} from "../../redux/chat/selectors";
 import {accountSelector} from "../../redux/accaunt/selector";
+import {setMessageCount} from "../../redux/chat/slice";
 
 const Notifications = React.memo(() => {
 
@@ -42,13 +43,18 @@ const Notifications = React.memo(() => {
             const interval = setInterval(() => {
                 receiveNotification().then(response => {
                     if (response){
-                        // console.log('1',response)
+                        console.log('1',response)
                         deleteNotification(response.receiptId, apiTokenInstance, idInstance).catch(error => console.error('deleteNotification',error))
-                        if(response.body.senderData.chatId === currentChat){
-                            getMessages(currentChat, response.body.idMessage)
-                        }else console.log('пришло сообщение в другой чат')
+                        // getMessages(currentChat.id, response.body.idMessage)
+                        if(response.body.senderData.chatId === currentChat.id){
+                            getMessages(currentChat.id, response.body.idMessage)
+                        }else {
+                            console.log('пришло сообщение в другой чат')
+                            dispatch(setMessageCount(response.body.senderData.chatId))
+
+                        }
                     }else{
-                        // console.log('2',response);
+                        console.log('2',response);
                     }
                 })
 

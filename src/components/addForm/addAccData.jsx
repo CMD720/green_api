@@ -3,22 +3,35 @@ import {useAppDispatch} from "../../redux/storeHooks";
 import styles from "./addForm.module.scss";
 import {logIn} from "../../redux/accaunt/slice";
 import {modalOnOff} from "../../redux/modal/slice";
+import {getContactInfo} from "../../utils/getContactInfo";
+import {getSettings} from "../../utils/getSettings";
 
 const AddAccData = () => {
 
     const dispatch = useAppDispatch()
     const [idInstance, setIdInstance] = useState("")
     const [apiTokenInstance, setApiTokenInstance] = useState("")
-    const instace = useRef()
+    const instance = useRef()
     const token = useRef()
     const login = () => {
-        const data = {
-            idInstance,
-            apiTokenInstance,
-        }
         if (idInstance !== "" && apiTokenInstance !== "") {
-            dispatch(logIn(data))
-            dispatch(modalOnOff())
+            getSettings(apiTokenInstance, idInstance)
+                .then(settings => {
+                    // console.log(settings);
+                    // setMyChatId(response.wid)
+                    getContactInfo(settings.wid, idInstance, apiTokenInstance).then(response => {
+                        const data = {
+                            idInstance,
+                            apiTokenInstance,
+                            id:settings.wid,
+                            avatar: response.avatar,
+                            name: response.name,
+                        }
+                        dispatch(logIn(data))
+                        dispatch(modalOnOff())
+                    }).catch(error => console.error('getContactInfo',error))
+                }).catch(error => console.error('getSettings',error))
+
         } else {
             alert(`Please fill all fields`)
         }
@@ -43,7 +56,7 @@ const AddAccData = () => {
         console.log(event);
         if (event) {
             setIdInstance("")
-            instace.current?.focus()
+            instance.current?.focus()
         } else {
             setApiTokenInstance("")
             token.current?.focus()
@@ -64,7 +77,7 @@ const AddAccData = () => {
             </span>
             <div className={styles.input_fields}>
                 <input
-                    ref={instace}
+                    ref={instance}
                     value={idInstance}
                     onChange={onChangeId}
                     onKeyDown={keyPress}
@@ -72,7 +85,8 @@ const AddAccData = () => {
                 {
                     idInstance && (<div onClick={() => onClickClearInput(true)} className={styles.clear_input}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+                            <path
+                                d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
                         </svg>
                     </div>)
                 }
@@ -90,7 +104,8 @@ const AddAccData = () => {
                 {
                     apiTokenInstance && (<div onClick={() => onClickClearInput(false)} className={styles.clear_input}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+                            <path
+                                d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
                         </svg>
                     </div>)
                 }

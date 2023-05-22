@@ -1,5 +1,6 @@
 .chat_head {
   display: flex;
+  align-items: center;
   background-color: #ffff;
   padding: 0 16px;
   cursor: pointer;
@@ -19,6 +20,7 @@
   }
 
   .chat_name_wrapper {
+    height: 100%;
     border-bottom: 1px solid #e9edef;
     display: flex;
     flex-direction: column;
@@ -31,6 +33,20 @@
       color: #00a884;
     }
   }
+
+
+  .message_count {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: rgba(0, 168, 132, 0.6);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+  }
+
 }
 
 .selected {

@@ -5,6 +5,8 @@ import {addChat} from "../../redux/chat/slice";
 import {modalOnOff} from "../../redux/modal/slice";
 import axios from "axios";
 import {accountSelector} from "../../redux/accaunt/selector";
+import {getContactInfo} from "../../utils/getContactInfo";
+import {logIn} from "../../redux/accaunt/slice";
 
 const AddChat = () => {
 
@@ -46,14 +48,22 @@ const AddChat = () => {
     }
     //TODO для контакта чата создавать объекты с url аватара, именем и счетчиком сообщений. Диспачить уже объект.
     const createChat = () => {
-
         if (foneNumber) {
             const numb = Number(foneNumber)
             CheckWhatsapp(numb).then(response => {
                 if (response) {
                     const id = foneNumber + "@c.us"
-                    dispatch(addChat(id))
-                    dispatch(modalOnOff())
+                    getContactInfo(id, idInstance, apiTokenInstance).then(response => {
+                        const data = {
+                            id,
+                            avatar: response.avatar,
+                            name: response.name,
+                            noReadMessageCount:0
+                        }
+                        dispatch(addChat(data))
+                        dispatch(modalOnOff())
+                    }).catch(error => console.error('getContactInfo',error))
+
                 } else {
                     alert(`this number is not registered or is incorrect`)
                 }
