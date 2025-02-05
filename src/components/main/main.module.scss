@@ -24,7 +24,6 @@
 
       .logOut {
         position: absolute;
-        // position: relative ;
         right: 25px;
         top: 18px;
         fill: #00a884;
@@ -79,22 +78,8 @@
 
       .chat_name {
         font-size: 24px;
-        // font-size: auto;
       }
     }
-  }
-
-  @media (max-width: 1000px) {
-    .chat_head {
-      flex-direction: column;
-      // justify-content: start;
-
-      .chat_name_wrapper{
-        .chat_name {
-          font-size: 18px;
-        }
-      }      
-    }    
   }
 
 }

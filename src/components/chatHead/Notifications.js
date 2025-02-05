@@ -18,7 +18,7 @@ const Notifications = React.memo(() => {
             "chatId": chatId,
             "idMessage": idMessage
         }
-        console.log('MESSAGE DATA',messageData);
+        // console.log('MESSAGE DATA',messageData);
         try {
             const {data} = await axios.post(`https://api.green-api.com/waInstance${idInstance}/getMessage/${apiTokenInstance}`,
                 {
@@ -49,7 +49,7 @@ const Notifications = React.memo(() => {
                         if(response.body.senderData.chatId === currentChat.id){
                             getMessages(currentChat.id, response.body.idMessage)
                         }else {
-                            // console.log('пришло сообщение в другой чат')
+                            console.log('пришло сообщение в другой чат')
                             dispatch(setMessageCount(response.body.senderData.chatId))
 
                         }
