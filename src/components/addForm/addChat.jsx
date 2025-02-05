@@ -91,7 +91,7 @@ const AddChat = () => {
                     value={foneNumber}
                     onChange={onSetFoneNumber}
                     onKeyDown={keyPress}
-                    className={styles.input} placeholder="Enter phone number (without + and 8) " type="text"/>
+                    className={styles.input} placeholder="Enter phone number (in format: 79*********) " type="text"/>
                 {
                     foneNumber && (<div onClick={onClickClear} className={styles.clear_input}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
